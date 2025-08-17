@@ -1,0 +1,9 @@
+{
+  "id": "limbodatasync",
+  "name": "LimboDataSync",
+  "version": "1.0-SNAPSHOT",
+  "authors": [
+    "YourName"
+  ],
+  "main": "com.example.limbodatasync.LimboDataSync"
+}

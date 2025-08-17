@@ -12,7 +12,6 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import net.elytrium.limboapi.api.LimboFactory;
-import net.elytrium.limboapi.api.LimboServer;
 import net.elytrium.limboapi.api.player.LimboPlayer;
 import net.kyori.adventure.text.Component;
 import org.slf4j.Logger;
@@ -93,9 +92,8 @@ public class LimboDataSync {
             limboPlayers.get(player.getUniqueId()).disconnect();
         }
 
-        LimboServer limboServer = this.limboFactory.createLimboServer();
-        limboServer.addPlayer(player, limboPlayer -> {
-            limboPlayers.put(player.getUniqueId(), limboPlayer);
+        LimboPlayer limboPlayer = this.limboFactory.createVirtualPlayer(player, limboPlayer1 -> {
+            limboPlayers.put(player.getUniqueId(), limboPlayer1);
 
             int delaySeconds = config.getInt("limbo.delay-seconds");
             AtomicInteger countdown = new AtomicInteger(delaySeconds);
@@ -103,7 +101,7 @@ public class LimboDataSync {
             ScheduledTask task = server.getScheduler().buildTask(this, () -> {
                 int remaining = countdown.getAndDecrement();
                 if (remaining > 0) {
-                    limboPlayer.sendTitle(
+                    limboPlayer1.sendTitle(
                             Component.text("Transporting to " + targetServer.getServerInfo().getName()),
                             Component.text("Arriving in " + remaining + " seconds..."),
                             0, 20, 0

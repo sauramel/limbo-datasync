@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven {
+        name = "elytrium-repo"
+        url = "https://maven.elytrium.net/repo/"
+    }
+}
+
+dependencies {
+    implementation 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+    annotationProcessor 'com.velocitypowered:velocity-api:3.3.0-SNAPSHOT'
+    compileOnly 'net.elytrium.limboapi:api:1.1.26'
+    implementation 'com.typesafe:config:1.4.3'
+}
